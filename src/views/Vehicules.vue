@@ -1,6 +1,6 @@
 <template>
   <div>
-    Page véhicules
+   Page Vehicules
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    Page locataire
+   Page Locataires
   </div>
 </template>
 

@@ -1,8 +1,10 @@
 <template>
-  <div>Page louer un véhicule</div>
+  <div>commencer une location</div>
 </template>
 
 <script>
+// @ is an alias to /src
+
 export default {
   name: "Louer",
 };

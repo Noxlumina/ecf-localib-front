@@ -1,9 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Locataires from '../views/Home.vue'
-import Locations from '../views/Home.vue'
-import Vehicules from '../views/Home.vue'
-import Louer from '../views/Home.vue'
+import Locataires from '../views/Locataires.vue'
+import Locations from '../views/Locations.vue'
+import Vehicules from '../views/Vehicules.vue'
+import Louer from '../views/Louer.vue'
+
 
 
 const routes = [
@@ -13,22 +14,22 @@ const routes = [
     component: Home
   },
   {
-    path: '/gestiondeslocataires',
+    path: '/locataires',
     name: 'Locataires',
     component: Locataires
   },
   {
-    path: '/gestiondeslocations',
+    path: '/locations',
     name: 'Locations',
     component: Locations
   },
   {
-    path: '/gestiondesvehicules',
+    path: '/vehicules',
     name: 'Vehicules',
     component: Vehicules
   },
   {
-    path: '/louerunvehicule',
+    path: '/louer',
     name: 'Louer',
     component: Louer
   }
