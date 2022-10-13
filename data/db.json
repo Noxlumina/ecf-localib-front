@@ -1,0 +1,65 @@
+{
+  "locataires": [
+    {
+      "id": 1,
+      "nom": "toto",
+      "prenom": "test",
+      "email": "test"
+    },
+    {
+      "id": 2,
+      "nom": "Da Santos",
+      "prenom": "Paola",
+      "email": "Koala@.com"
+    },
+    {
+      "id": 4,
+      "nom": "tttt",
+      "prenom": "tttzzzzzzz",
+      "email": "ttttttt"
+    }
+  ],
+  "vehicules": [
+    {
+      "id": 1,
+      "immatriculation": "AA-229-AAA",
+      "modele": "500",
+      "marque": "Fiat",
+      "etat": "bon",
+      "prix": 30,
+      "disponibilite": "false",
+      "type": "voiture"
+    },
+    {
+      "id": 3,
+      "immatriculation": "AZ-029-ZZZ",
+      "modele": "Astra",
+      "marque": "Opel",
+      "etat": "bon",
+      "prix": 40,
+      "disponibilite": "true",
+      "type": "voiture"
+    },
+    {
+      "id": 4,
+      "immatriculation": "AZ-029-ZZZ",
+      "modele": "moto",
+      "marque": "moto",
+      "etat": "bon",
+      "prix": 40,
+      "disponibilite": "true",
+      "type": "moto"
+    },
+    {
+      "id": 5,
+      "immatriculation": "AZ-029-ZZZ",
+      "modele": "utilitaire",
+      "marque": "utilitaire",
+      "etat": "bon",
+      "prix": 40,
+      "disponibilite": "true",
+      "type": "utilitaire"
+    }
+  ],
+  "locations": []
+}
