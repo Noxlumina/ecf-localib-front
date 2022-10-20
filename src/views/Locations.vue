@@ -43,6 +43,8 @@
 }
 </style>
 <template>
+ 
+
   <MDBTable captionTop :class="$style.form">
     <caption :class="$style.form">
       <h1 :class="$style.titre">Tableau des locations</h1>
@@ -65,12 +67,18 @@
           :key="vehicule._id"
           v-show="vehicule._id == location.vehicule"
         >
-          Marque: {{ vehicule.marque }} <br> Modèle: {{ vehicule.modele }} <br> Immatriculation:
+          Marque: {{ vehicule.marque }} <br />
+          Modèle: {{ vehicule.modele }} <br />
+          Immatriculation:
           {{ vehicule.immatriculation }}
         </td>
-        <td  v-for="locataire of locataires"
+        <td
+          v-for="locataire of locataires"
           :key="locataire._id"
-          v-show="locataire._id == location.locataire">{{ locataire.nom }} {{ locataire.prenom }}</td>
+          v-show="locataire._id == location.locataire"
+        >
+          {{ locataire.nom }} {{ locataire.prenom }}
+        </td>
         <td>{{ location.date_de_debut }}</td>
         <td>{{ location.date_de_fin }}</td>
         <td>{{ location.prix }}</td>
@@ -90,7 +98,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import { MDBBtn, MDBTable } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 import axios from "axios";
@@ -102,7 +109,7 @@ export default {
     return { locations: [], isEditing: false, search: "", vehicules: [], locataires: [] };
   },
   /*
-   *méthode permettant de récupérer tous les locataires lors de l'initialisation de la page
+   *méthode permettant de récupérer tous les locataires lors de l'initialisation de la page, tous les véhicules et locations
    */
   async created() {
     try {
@@ -118,10 +125,10 @@ export default {
   },
   methods: {
     /*
-     *méthode permettant de supprimer un locataire en fonction de son id
+     *méthode permettant de supprimer uene location en fonction de son id
      */
     removeItem(id) {
-      axios.delete(`http://localhost:5000/locataires/delete/${id}`);
+      axios.delete(`http://localhost:5000/locations/delete/${id}`);
       this.locations = this.locations.filter((location) => location._id !== id);
     },
   },

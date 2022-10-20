@@ -61,7 +61,7 @@
             <option
               v-for="vehicule of vehicules"
               :key="vehicule._id"
-              v-show="vehicule.marque == marque"
+              v-show="vehicule.marque == marque && vehicule.disponibilite == true"
             >
               {{ vehicule.modele }}
             </option>
@@ -74,7 +74,11 @@
             <option
               v-for="vehicule of vehicules"
               :key="vehicule._id"
-              v-show="vehicule.marque == marque && vehicule.modele == modele"
+              v-show="
+                vehicule.marque == marque &&
+                vehicule.modele == modele &&
+                vehicule.disponibilite == true
+              "
             >
               {{ vehicule.immatriculation }}
             </option>
@@ -177,27 +181,43 @@
 
     <h2 :class="$style.titre">Choix des dates</h2>
     <MDBRow :class="$style.row">
-      <MDBCol> <Datepicker v-model="date"></Datepicker> </MDBCol>
-      <MDBCol>
-        <MDBInput
-          type="date"
-          label="Date de fin"
-          id="datedefin"
-          v-model="modele"
-          invalidFeedback="Remplissez le champ Date de fin"
-          validFeedback="Tout semble ok!"
-          validationEvent="input"
-          required
-        />
-      </MDBCol>
+      <MDBCol> <Datepicker v-model="date" range /></MDBCol>
     </MDBRow>
-    <!-- <MDBBtn color="success" type="submit">Enregistrer la location</MDBBtn> -->
+    <MDBBtn color="success" @:click="getPrice(date[0], date[1])"
+      >calcul du prix pour les dates choisies</MDBBtn
+    >
+    <p v-if="this.totalprice > 0">Le prix de la location est : {{ this.totalprice }}</p>
+    <MDBBtn color="success" @:click="addLocation(vehiculechoisi._id)"
+      >Valider la location</MDBBtn
+    >
   </form>
+
+  <MDBModal id="Modal" tabindex="-1" labelledby="ModalLabel" v-model="Modal">
+    <MDBModalHeader>
+      <MDBModalTitle id="ModalLabel"> Message d'erreur </MDBModalTitle>
+    </MDBModalHeader>
+    <MDBModalBody
+      >La date choisie et l'heure doivent être supérieur à ceux actuels</MDBModalBody
+    >
+    <MDBModalFooter>
+      <MDBBtn color="secondary" @click="Modal = false">Close</MDBBtn>
+    </MDBModalFooter>
+  </MDBModal>
 </template>
 
 <script>
-import { MDBRow, MDBCol, MDBBtn, MDBTable } from "mdb-vue-ui-kit";
-import { ref } from "vue";
+import {
+  MDBRow,
+  MDBCol,
+  MDBBtn,
+  MDBTable,
+  MDBModal,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from "mdb-vue-ui-kit";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
@@ -211,23 +231,20 @@ export default {
       locataires: [],
       locataire: "",
       selected: null,
-      date: null,
       vehiculechoisi: "",
       locatairechoisi: "",
       isEditingVehicule: false,
       isEditingLocataire: false,
+      isEditingDate: false,
+      totalprice: 0,
+      date: Date.now(),
+      Modal: false,
     };
   },
   computed: {},
-  watch: {
-    immatriculation(newImmatriculation, oldImmatriculation) {
-      if (newImmatriculation != oldImmatriculation) {
-        // this.getAnswer()
-      }
-    },
-  },
+  watch: {},
   /*
-   *méthode permettant de récupérer toutes les données des véhicules
+   *méthode permettant de récupérer toutes les données des véhicules et locataires lors de la création de la page
    */
   async created() {
     try {
@@ -242,55 +259,29 @@ export default {
   },
   methods: {
     /*
-     *méthode permettant d'ajouter un véhicule
+     *redirection vers la page de gestion des locations
      */
-    async addLocataireLocation() {
-      // const res = await axios.post(`http://localhost:3000/vehicules`, {
-      const res = await axios.post(`http://localhost:5000/vehicule`, {
-        // id: this.id,
-        immatriculation: this.immatriculation,
-        modele: this.modele,
-        marque: this.marque,
-        etat: this.etat,
-        prix: this.prix,
-        disponibilite: this.disponibilite,
-        type: this.type,
-      });
-      console.log(res);
-      this.vehicules = [...this.vehicules, res.data];
-      this.immatriculation = "";
-      this.modele = "";
-      this.marque = "";
-      this.etat = "";
-      this.prix;
-      this.disponibilite = true;
-      this.isEditing = false;
+    goToLocations() {
+      this.$router.push("/locations");
     },
     /*
-     *méthode permettant d'ajouter un véhicule
+     *méthode permettant d'ajouter une location
      */
-    async addVehiculeLocation() {
-      // const res = await axios.post(`http://localhost:3000/vehicules`, {
-      const res = await axios.post(`http://localhost:5000/vehicule`, {
-        // id: this.id,
-        immatriculation: this.immatriculation,
-        modele: this.modele,
-        marque: this.marque,
-        etat: this.etat,
-        prix: this.prix,
-        disponibilite: this.disponibilite,
-        type: this.type,
+    async addLocation(voitureid) {
+      const res = await axios.post(`http://localhost:5000/location`, {
+        vehicule: this.vehiculechoisi,
+        locataire: this.locatairechoisi,
+        date_de_debut: this.date[0],
+        date_de_fin: this.date[1],
+        prix: this.totalprice,
       });
       console.log(res);
-      this.vehicules = [...this.vehicules, res.data];
-      this.immatriculation = "";
-      this.modele = "";
-      this.marque = "";
-      this.etat = "";
-      this.prix;
-      this.disponibilite = true;
-      this.isEditing = false;
+      this.update(voitureid);
+      this.goToLocations();
     },
+    /*
+     *méthode permettant de récupérer un véhicule en fonction de son immatriculation
+     */
     async getByImmatriculation(imma) {
       try {
         const res = await axios.get(`http://localhost:5000/immat/${imma}`);
@@ -301,6 +292,9 @@ export default {
       }
       this.isEditingVehicule = true;
     },
+    /*
+     *méthode permettant de récupérer un locataire en fonction de son adresse email
+     */
     async getByEmail(email) {
       try {
         const res = await axios.get(`http://localhost:5000/email/${email}`);
@@ -311,6 +305,46 @@ export default {
       }
       this.isEditingLocataire = true;
     },
+    /*
+     *méthode permettant de calculer le nombre de jours de locations,
+     * le prix total en fonction du prix journalier d'un véhicule
+     * et qui vérifie si les dates sont valides
+     */
+    getPrice(start, end) {
+      const date1 = new Date(start);
+      const date2 = new Date(end);
+      const time = date1.getTime();
+      console.log(this.Modal);
+      console.log(time);
+      console.log(Date.now());
+      if (time > Date.now()) {
+        // One day in milliseconds
+        const oneDay = 1000 * 60 * 60 * 24;
+        // Calculating the time difference between two dates
+        const diffInTime = date2.getTime() - date1.getTime();
+        // Calculating the no. of days between two dates
+        const diffInDays = Math.round(diffInTime / oneDay);
+        this.totalprice = diffInDays * this.vehiculechoisi.prix;
+        this.isEditingDate = true;
+      } else {
+        this.Modal = true;
+        console.log(this.Modal);
+      }
+    },
+    /*
+     *méthode qui permet de changer l'état de disponibilité d'un véhicule
+     */
+    async update(voitureid) {
+      try {
+        await axios
+          .patch(`http://localhost:5000/vehicule/patch/${voitureid}`, {
+            disponibilite: false,
+          })
+          .then((response) => console.log(response));
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   name: "Louer",
   components: {
@@ -319,6 +353,11 @@ export default {
     MDBBtn,
     Datepicker,
     MDBTable,
+    MDBModal,
+    MDBModalHeader,
+    MDBModalTitle,
+    MDBModalBody,
+    MDBModalFooter,
   },
   setup() {
     //vehicules
@@ -334,6 +373,13 @@ export default {
     const prenom = ref("");
     const email = ref("");
     const password = ref("");
+    //date
+    const date = ref();
+    onMounted(() => {
+      const startDate = new Date();
+      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+      date.value = [startDate, endDate];
+    });
 
     return {
       //vehicules

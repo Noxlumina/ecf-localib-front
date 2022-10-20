@@ -1,12 +1,30 @@
-huitième release 
+neuvième release 
 
-réalisation de la page gestion de locations qui permet d'afficher toutes les locations
-(pour le moments se sont des valeurs qui ont été ajoutées en brut dans la base de données)
+on récupère les locations créées
 
-réalisation de la page permettant d'effectuer une locations
-(pour le moment ont peut choisir un véhicule en fonction de son immatriculation et un locataire en fonction de son adresse email)
+on peut maintenant choisir un véhicule, un locataire et il y a une vérification sur la date choisie.
 
-il faut maintenant pouvoir choisir les dates de locations et calculer le prix total de la location
+Tout n'est pas parfait les champs des formulaires pourraient être améliorer, comme la mise en place 
+d'un champs adresse pour de la prospection commerciale.
+
+Tout le css pourrait être améliorer pour être plus responsif et plus agréable tel que l'implémentation de card au lieu d'un tableau.
+
+Un image picker devrait être mis en place pour pouvoir charger une  image lors de la création d'un véhicule.
+
+Les nodes modules sont présents dans le dossier back j'aurais du les supprimer peut être, je sais pas au moins ça évite de faire un 
+nouveau npm install.
+
+Et j'aurais du utiliser des populate au lieu de faire des boucles à répétitions, pour le moment ça ne bug pas vraiment mais si il  y aurait
+beaucoup de données dans la  base de données celà s'exprimerait par un temps de réponse plus long. 
+
+
+
+pour lancer le back à partir du dossier Back -> node server.js 
+pour lancer le font il faut réaliser la commande -> npm run serve.
+
+
+
+
 
 
 
