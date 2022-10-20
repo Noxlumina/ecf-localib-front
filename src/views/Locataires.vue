@@ -18,7 +18,7 @@
 }
 
 .searchBar {
-  width: 70vw;
+  width: 25vw;
 }
 
 .button {

@@ -14,7 +14,7 @@
   color: rgba(31, 31, 136, 0.712);
 }
 .searchBar {
-  width: 70vw;
+  width: 25vw;
 }
 .button {
   width: 120px;
@@ -31,6 +31,10 @@
   width: 300px;
   height: 200px;
   margin: 1%;
+}
+.photo {
+  width: 100px;
+  height: 80px;
 }
 </style>
 
@@ -213,6 +217,7 @@
       </caption>
       <thead>
         <tr>
+          <th scope="col"></th>
           <th scope="col">Immatriculation</th>
           <th scope="col">Marque</th>
           <th scope="col">Modèle</th>
@@ -225,6 +230,13 @@
       </thead>
       <tbody>
         <tr v-for="vehicule of vehicules" :key="vehicule.immatriculation">
+          <th>
+            <img
+              v-bind:src="vehicule.photo"
+              alt="photo de vehicule"
+              :class="$style.photo"
+            />
+          </th>
           <th scope="row">{{ vehicule.immatriculation }}</th>
           <td>{{ vehicule.modele }}</td>
           <td>{{ vehicule.marque }}</td>
@@ -269,7 +281,6 @@ export default {
    */
   async created() {
     try {
-      // const res = await axios.get(`http://localhost:3000/vehicules`);
       const res = await axios.get(`http://localhost:5000/vehicules`);
       this.vehicules = res.data;
       console.log(res.data);
@@ -335,6 +346,7 @@ export default {
     const prix = ref();
     const disponibilite = ref(true);
     const type = ref("");
+    const photo = ref("");
 
     return {
       immatriculation,
@@ -344,6 +356,7 @@ export default {
       prix,
       disponibilite,
       type,
+      photo,
     };
   },
 };

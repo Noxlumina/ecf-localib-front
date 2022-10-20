@@ -45,6 +45,9 @@ const VehiculeSchema = new mongoose.Schema({
         required: true,
         trim: true,
         lowercase: true,
+    },
+    photo: {
+        type:String
     }
 });
 

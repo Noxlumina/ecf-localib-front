@@ -1,9 +1,22 @@
+<style module>
+.form {
+  background-color:rgb(231, 231, 241);
+}
+.row {
+  width:100%;
+  margin-bottom:1%;
+}
+.titre{
+  text-decoration: underline;
+  color:rgba(31, 31, 136, 0.712);;
+}
+</style>
+
 <template>
-  <MDBBtn color="primary" v-on:click="goToLocataires()"> Retour </MDBBtn>
-  <h1>Modificaton des informations du locataires</h1>
-  <form>
-    <!-- 2 column grid layout with text inputs for the first and last names -->
-    <MDBRow class="mb-4">
+  <MDBBtn color="primary" @:click="goToLocataires()"> Retour </MDBBtn>
+  <form :class="$style.form" @submit.prevent="updateAndRedirect(locataire)">
+    <h1 :class="$style.titre">Modificaton des informations du locataires</h1>
+    <MDBRow :class="$style.row">
       <MDBCol>
         <MDBInput type="text" label="Nom" id="nom" v-model="locataire.nom" />
       </MDBCol>
@@ -11,7 +24,7 @@
         <MDBInput type="text" label="Prénom" id="prenom" v-model="locataire.prenom" />
       </MDBCol>
     </MDBRow>
-    <MDBRow class="mb-4">
+    <MDBRow :class="$style.row">
       <MDBCol>
         <MDBInput type="email" label="Adresse email" id="email" v-model="locataire.email" />
       </MDBCol>
@@ -19,8 +32,7 @@
         <MDBInput type="password" label="Password" id="password" v-model="locataire.password" />
       </MDBCol>
     </MDBRow>
-    <!-- Submit button -->
-    <MDBBtn color="success" @click="updateAndRedirect(locataire)"> Valider la modification </MDBBtn>
+    <MDBBtn color="success" type="submit"> Valider la modification </MDBBtn>
   </form>
   <router-view />
 </template>
@@ -42,7 +54,7 @@ export default {
  */
   async created() {
     try {
-      const res = await axios.get('http://localhost:3000/locataires/' + this.$route.params.id)
+      const res = await axios.get('http://localhost:5000/locataire/' + this.$route.params.id)
       this.locataire = res.data;
     } catch (error) {
       console.log(error);
@@ -68,17 +80,15 @@ export default {
  */
     async update(data) {
       try {
-        await axios.put('http://localhost:3000/locataires/' + this.$route.params.id, {
-          id: data.id,
+          await axios.patch('http://localhost:5000/locataire/patch/' + this.$route.params.id, {
           nom: data.nom,
           prenom: data.prenom,
-          email: data.email
+          email: data.email,
+          password:data.password
         })
           .then((response) => console.log(response))
-
       } catch (error) {
         console.error(error);
-
       }
     },
   },
