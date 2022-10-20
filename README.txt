@@ -11,8 +11,7 @@ Tout le css pourrait être améliorer pour être plus responsif et plus agréabl
 
 Un image picker devrait être mis en place pour pouvoir charger une  image lors de la création d'un véhicule.
 
-Les nodes modules sont présents dans le dossier back j'aurais du les supprimer peut être, je sais pas au moins ça évite de faire un 
-nouveau npm install.
+Il faut au préalable installer les nodes modules dans le dossier ecf et le dossier back.
 
 Et j'aurais du utiliser des populate au lieu de faire des boucles à répétitions, pour le moment ça ne bug pas vraiment mais si il  y aurait
 beaucoup de données dans la  base de données celà s'exprimerait par un temps de réponse plus long. 
