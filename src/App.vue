@@ -1,23 +1,63 @@
+<style module>
+.logo {
+  height: 50px;
+  padding-left: 20px;
+  opacity: 0.5;
+}
+.logo:hover {
+  opacity: 1;
+}
+.background {
+  background-color: rgba(31, 31, 136, 0.712);
+  height: 100vh;
+}
+.nav {
+  background-color: rgba(31, 31, 136, 0.712);
+}
+.navItem:hover {
+  color: black;
+}
+.navItem {
+  color: white;
+  margin-left:5%;
+  width:20vw;
+}
+</style>
+
 <template>
-  <MDBNavbar expand="lg" dark  style="background-color: #4527a0">
-    <MDBNavbarBrand href="#">
-      <img src="./assets/logo.png" height="80" alt="" loading="lazy" />
-    </MDBNavbarBrand>
-    <MDBNavbarToggler
-      target="#navbarCenterAlignExample"
-      @click="collapse6 = !collapse6"
-    ></MDBNavbarToggler>
-    <MDBCollapse id="navbarCenterAlignExample" v-model="collapse6">
-      <MDBNavbarNav center class="mb-2 mb-lg-0 p-4">
-        <MDBNavbarItem class="shadow-inner" to="/" active> Accueil </MDBNavbarItem>
-        <MDBNavbarItem class="shadow-inner" to="/vehicules" active> Gestion des véhicules </MDBNavbarItem>
-        <MDBNavbarItem class="shadow-inner" to="/locataires" active> Gestion des locataires </MDBNavbarItem>
-        <MDBNavbarItem class="shadow-inner" to="/locations" active> Gestion locations </MDBNavbarItem>
-        <MDBNavbarItem class="shadow-inner" to="/louer" active> Location d'un véhicule </MDBNavbarItem>
-      </MDBNavbarNav>
-    </MDBCollapse>
-  </MDBNavbar>
-  <router-view />
+  <div :class="$style.background">
+    <MDBNavbar expand="lg" :class="[$style.nav]">
+      <MDBNavbarBrand href="#">
+        <img
+          src="./assets/logo.png"
+          alt="logo de localib"
+          loading="lazy"
+          :class="$style.logo"
+        />
+      </MDBNavbarBrand>
+      <MDBNavbarToggler
+        target="#navbarCenterAlignExample"
+        @click="collapse6 = !collapse6"
+      ></MDBNavbarToggler>
+      <MDBCollapse id="navbarCenterAlignExample" v-model="collapse6">
+        <MDBNavbarNav center class="mb-2 mb-lg-0 p-4">
+          <MDBNavbarItem class="shadow-inner" to="/vehicules" active>
+            <p :class="$style.navItem">Gestion des véhicules</p>
+          </MDBNavbarItem>
+          <MDBNavbarItem class="shadow-inner" to="/locataires" active
+            ><p :class="$style.navItem">Gestion des locataires</p>
+          </MDBNavbarItem>
+          <MDBNavbarItem class="shadow-inner" to="/locations" active>
+            <p :class="$style.navItem">Gestion locations</p>
+          </MDBNavbarItem>
+          <MDBNavbarItem class="shadow-inner" to="/louer" active>
+            <p :class="$style.navItem">Location d'un véhicule</p>
+          </MDBNavbarItem>
+        </MDBNavbarNav>
+      </MDBCollapse>
+    </MDBNavbar>
+    <router-view />
+  </div>
 </template>
 
 <script>
