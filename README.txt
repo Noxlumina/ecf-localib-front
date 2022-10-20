@@ -1,13 +1,12 @@
-septième release 
+huitième release 
 
-Mise en forme de la page Vehicule.vue et Locataire.vue.
-rectification de la méthode update dans Vehicule.vue, qui était déclaré 
-comme en dehors du champs méthode qui n'était de se fait pas reconnu comme une fonction 
-et qui faisait crashé toute l'application.
+réalisation de la page gestion de locations qui permet d'afficher toutes les locations
+(pour le moments se sont des valeurs qui ont été ajoutées en brut dans la base de données)
 
-Ajout d'un champs photo dans le back pour le véhicule, pour le moment l'ajout de la photo se fait directement en base de données.
-Le mieux serait d'implémenter un image picker qui stockerait les infos de l'image en base de données.
+réalisation de la page permettant d'effectuer une locations
+(pour le moment ont peut choisir un véhicule en fonction de son immatriculation et un locataire en fonction de son adresse email)
 
+il faut maintenant pouvoir choisir les dates de locations et calculer le prix total de la location
 
 
 

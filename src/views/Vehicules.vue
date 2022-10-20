@@ -1,4 +1,5 @@
 <style module>
+/* balise de style interne à la page */
 .form {
   background-color: rgb(231, 231, 241);
 }
@@ -263,6 +264,7 @@
 </template>
 
 <script>
+// import des composants utilisés
 import { MDBRow, MDBCol, MDBInput, MDBBtn, MDBTable, MDBRadio } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 import axios from "axios";
@@ -270,6 +272,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      // initialisation de variables
       vehicules: [],
       isEditing: false,
       selected: null,
@@ -331,6 +334,7 @@ export default {
   },
   name: "Vehicules",
   components: {
+    //composants utilisés
     MDBRow,
     MDBCol,
     MDBInput,
@@ -339,6 +343,7 @@ export default {
     MDBRadio,
   },
   setup() {
+    //initialisation de variables
     const immatriculation = ref("");
     const modele = ref("");
     const marque = ref("");

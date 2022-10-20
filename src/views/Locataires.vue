@@ -1,4 +1,5 @@
 <style module>
+/* balise de style interne à la page */
 .form {
   background-color: rgb(231, 231, 241);
 }
@@ -198,17 +199,13 @@
 </template>
 
 <script>
-import {
-  MDBRow,
-  MDBCol,
-  MDBInput,
-  MDBBtn,
-  MDBTable,
-} from "mdb-vue-ui-kit";
+// import des composants utilisés
+import { MDBRow, MDBCol, MDBInput, MDBBtn, MDBTable } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 import axios from "axios";
 export default {
   data() {
+    // initialisation de variables
     //donnée utilisé pour l'affichage conditionnel
     return { locataires: [], isEditing: false, search: "" };
   },
@@ -262,6 +259,7 @@ export default {
   },
   name: "Locataires",
   components: {
+    //composants utilisés
     MDBTable,
     MDBRow,
     MDBCol,
@@ -269,6 +267,7 @@ export default {
     MDBBtn,
   },
   setup() {
+    // initialisation de variables
     const nom = ref("");
     const prenom = ref("");
     const email = ref("");

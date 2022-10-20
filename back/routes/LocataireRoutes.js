@@ -21,6 +21,20 @@ app.get("/locataires", async (request, response) => {
 });
 
 /*
+*voie get sur véhicule permettant de récupérer un véhicule en fonction de son id
+*/
+app.get("/email/:email", async (request, response) => {
+  const locataire = await locataireModel.findOne({email:request.params.email });
+  console.log("route get one locataire");
+  try {
+    response.send(locataire);
+    console.log(locataire);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+/*
 *voie get sur locataire permettant de récupérer un locataire en fonction de son id
 */
 app.get("/locataire/:id", async (request, response) => {

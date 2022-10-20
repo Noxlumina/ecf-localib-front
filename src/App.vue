@@ -1,4 +1,5 @@
 <style module>
+/* balise de style interne à la page */
 .logo {
   height: 50px;
   padding-left: 20px;
@@ -19,13 +20,15 @@
 }
 .navItem {
   color: white;
-  margin-left:5%;
-  width:20vw;
+  margin-left: 5%;
+  width: 20vw;
 }
 </style>
 
 <template>
+  <!-- style de background s'appliquant sur toutes les pages -->
   <div :class="$style.background">
+    <!-- composant de la navbar -->
     <MDBNavbar expand="lg" :class="[$style.nav]">
       <MDBNavbarBrand href="#">
         <img
@@ -61,6 +64,7 @@
 </template>
 
 <script>
+// import des composants utilisés
 import {
   MDBNavbar,
   MDBNavbarToggler,
@@ -74,6 +78,7 @@ import { ref } from "vue";
 export default {
   name: "App",
   components: {
+    //composants utilisés
     MDBNavbar,
     MDBNavbarToggler,
     MDBNavbarBrand,
@@ -82,6 +87,7 @@ export default {
     MDBCollapse,
   },
   setup() {
+    //initialisation de variables
     const collapse6 = ref(false);
     const dropdown9 = ref(false);
 

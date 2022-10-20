@@ -1,4 +1,5 @@
 <style module>
+/* balise de style interne à la page */
 .button {
   width: 300px;
   margin: 2px;
@@ -56,6 +57,7 @@
 </template>
 
 <script>
+    //import des composants
 import { MDBContainer } from "mdb-vue-ui-kit";
 export default {
   data() {
@@ -63,23 +65,33 @@ export default {
   },
   methods: {
     /*
-     *méthodes de redirection non utilisé car doublon avec la navbar
+     *méthodes de redirection vers la pages Véhicules
      */
     goToVehicules() {
       this.$router.push("/vehicules");
     },
+     /*
+     *méthodes de redirection vers la pages Locataires
+     */
     goToLocataires() {
       this.$router.push("/locataires");
     },
+     /*
+     *méthodes de redirection vers la pages Locations
+     */
     goToLocations() {
       this.$router.push("/locations");
     },
+     /*
+     *méthodes de redirection vers la pages Louer
+     */
     goToLouer() {
       this.$router.push("/louer");
     },
   },
   name: "Home",
   components: {
+    //composant utilisé
     MDBContainer,
   },
 };

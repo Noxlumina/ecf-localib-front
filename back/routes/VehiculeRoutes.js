@@ -36,6 +36,20 @@ app.get("/vehicule/:id", async (request, response) => {
 });
 
 /*
+*voie get sur véhicule permettant de récupérer un véhicule en fonction de son id
+*/
+app.get("/immat/:immatriculation", async (request, response) => {
+  const vehicule = await vehiculeModel.findOne({immatriculation:request.params.immatriculation });
+  console.log("route get one vehicule");
+  try {
+    response.send(vehicule);
+    console.log(vehicule);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+/*
 *voie post sur véhicule permettant de créer un véhicule 
 */
 app.post("/vehicule", async (request, response) => {
