@@ -84,10 +84,10 @@
             </option>
           </select>
         </MDBCol>
-        <MDBBtn color="success" @:click="getByImmatriculation(immatriculation)"
-          >Je choisie ce véhicule</MDBBtn
-        >
       </MDBRow>
+      <MDBBtn color="success" @:click="getByImmatriculation(immatriculation)"
+          v-if="immatriculation!=''">Je choisie ce véhicule</MDBBtn
+        >
     </div>
 
     <MDBTable captionTop v-else :class="$style.form">
@@ -153,7 +153,7 @@
           </select>
         </MDBCol>
       </MDBRow>
-      <MDBBtn color="success" @:click="getByEmail(email)">Je choisie ce locataire</MDBBtn>
+      <MDBBtn color="success" @:click="getByEmail(email)" v-if="email!=''">Je choisie ce locataire</MDBBtn>
     </div>
 
     <MDBTable captionTop v-if="isEditingLocataire" :class="$style.form">
@@ -184,10 +184,10 @@
       <MDBCol> <Datepicker v-model="date" range /></MDBCol>
     </MDBRow>
     <MDBBtn color="success" @:click="getPrice(date[0], date[1])"
-      >calcul du prix pour les dates choisies</MDBBtn
+    >calcul du prix pour les dates choisies</MDBBtn
     >
     <p v-if="this.totalprice > 0">Le prix de la location est : {{ this.totalprice }}</p>
-    <MDBBtn color="success" @:click="addLocation(vehiculechoisi._id)"
+    <MDBBtn color="success" @:click="addLocation(vehiculechoisi._id)" 
       >Valider la location</MDBBtn
     >
   </form>
